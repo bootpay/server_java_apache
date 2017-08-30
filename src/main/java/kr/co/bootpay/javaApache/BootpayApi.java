@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class BootpayApi {
 
-    private final String BASE_URL = "https://dev-api.bootpay.co.kr/";
+    private final String BASE_URL = "https://api.bootpay.co.kr/";
     private final String URL_CONFIRM = BASE_URL + "receipt";
     private final String URL_CANCEL = BASE_URL + "cancel";
 
