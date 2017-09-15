@@ -5,7 +5,7 @@ package kr.co.bootpay.javaApache.model.request;
  */
 public class Cancel {
     public String application_id;
-    public String pk;
+    public String private_key;
     public String receipt_id;
     public String name;
     public String reason;

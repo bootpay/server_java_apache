@@ -13,9 +13,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 
-import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -41,7 +39,7 @@ public class BootpayApi {
         confirm = validConfirm(confirm);
         List<NameValuePair> nameValuePairList = Arrays.asList(
                 new BasicNameValuePair("application_id", confirm.application_id),
-                new BasicNameValuePair("pk", confirm.pk));
+                new BasicNameValuePair("private_key", confirm.private_key));
 
         HttpClient client = HttpClientBuilder.create().build();
         HttpGet get = getGet(URL_CONFIRM + "/" + confirm.receipt_id, nameValuePairList);
@@ -77,9 +75,9 @@ public class BootpayApi {
             confirm.application_id = this.application_id;
         }
 
-        if(confirm.pk == null || confirm.pk.isEmpty()) {
-            if(this.pk == null || this.pk.isEmpty()) throw new Exception("pk 값이 비어있습니다.");
-            confirm.pk = this.pk;
+        if(confirm.private_key == null || confirm.private_key.isEmpty()) {
+            if(this.pk == null || this.pk.isEmpty()) throw new Exception("private_key 값이 비어있습니다.");
+            confirm.private_key = this.pk;
         }
         if(confirm.receipt_id == null || confirm.receipt_id.isEmpty()) throw new Exception("receipt_id 값이 비어있습니다.");
         return confirm;
@@ -91,9 +89,9 @@ public class BootpayApi {
             cancel.application_id = this.application_id;
         }
 
-        if(cancel.pk == null || cancel.pk.isEmpty()) {
-            if(this.pk == null || this.pk.isEmpty()) throw new Exception("pk 값이 비어있습니다.");
-            cancel.pk = this.pk;
+        if(cancel.private_key == null || cancel.private_key.isEmpty()) {
+            if(this.pk == null || this.pk.isEmpty()) throw new Exception("private_key 값이 비어있습니다.");
+            cancel.private_key = this.pk;
         }
         if(cancel.receipt_id == null || cancel.receipt_id.isEmpty()) throw new Exception("receipt_id 값이 비어있습니다.");
         if(cancel.name == null || cancel.name.isEmpty()) throw new Exception("name 값이 비어있습니다.");

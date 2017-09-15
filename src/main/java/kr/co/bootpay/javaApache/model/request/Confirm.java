@@ -5,6 +5,6 @@ package kr.co.bootpay.javaApache.model.request;
  */
 public class Confirm {
     public String application_id;
-    public String pk;
+    public String private_key;
     public String receipt_id;
 }
