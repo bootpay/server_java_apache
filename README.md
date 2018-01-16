@@ -43,4 +43,4 @@ try {
 }
 ```
 
-### 더 자세한 정보는 [Docs](https://docs.bootpay.co.kr/api/validate)를 참조해주세요. 
+### 더 자세한 정보는 [Docs](https://docs.bootpay.co.kr/api/validate?languageCurrentIndex=1)를 참조해주세요. 
