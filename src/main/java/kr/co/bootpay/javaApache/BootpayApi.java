@@ -27,12 +27,12 @@ public class BootpayApi {
     private final String URL_CANCEL = BASE_URL + "cancel";
 
     private String application_id;
-    private String pk;
+    private String private_key;
 
     public BootpayApi() {}
-    public BootpayApi(String application_id, String pk) {
+    public BootpayApi(String application_id, String private_key) {
         this.application_id = application_id;
-        this.pk = pk;
+        this.private_key = private_key;
     }
 
     public HttpResponse confirm(Confirm confirm) throws Exception {
@@ -76,8 +76,8 @@ public class BootpayApi {
         }
 
         if(confirm.private_key == null || confirm.private_key.isEmpty()) {
-            if(this.pk == null || this.pk.isEmpty()) throw new Exception("private_key 값이 비어있습니다.");
-            confirm.private_key = this.pk;
+            if(this.private_key == null || this.private_key.isEmpty()) throw new Exception("private_key 값이 비어있습니다.");
+            confirm.private_key = this.private_key;
         }
         if(confirm.receipt_id == null || confirm.receipt_id.isEmpty()) throw new Exception("receipt_id 값이 비어있습니다.");
         return confirm;
@@ -90,8 +90,8 @@ public class BootpayApi {
         }
 
         if(cancel.private_key == null || cancel.private_key.isEmpty()) {
-            if(this.pk == null || this.pk.isEmpty()) throw new Exception("private_key 값이 비어있습니다.");
-            cancel.private_key = this.pk;
+            if(this.private_key == null || this.private_key.isEmpty()) throw new Exception("private_key 값이 비어있습니다.");
+            cancel.private_key = this.private_key;
         }
         if(cancel.receipt_id == null || cancel.receipt_id.isEmpty()) throw new Exception("receipt_id 값이 비어있습니다.");
         if(cancel.name == null || cancel.name.isEmpty()) throw new Exception("name 값이 비어있습니다.");

@@ -2,6 +2,7 @@ package kr.co.bootpay.javaApache;
 
 import kr.co.bootpay.javaApache.model.request.Cancel;
 import kr.co.bootpay.javaApache.model.request.Confirm;
+import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
 
 /**
@@ -11,6 +12,7 @@ public class Test {
     public static void main(String[] args) {
 
         goConfirm();
+        goCancel();
     }
 
     public static void goConfirm() {
@@ -20,7 +22,9 @@ public class Test {
         confirm.receipt_id = "593f8febe13f332431a8ddae";
 
         try {
-            api.confirm(confirm);
+            HttpResponse res = api.confirm(confirm);
+            String str = IOUtils.toString(res.getEntity().getContent(), "UTF-8");
+            System.out.println(str);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -35,7 +39,9 @@ public class Test {
         cancel.reason = "택배 지연에 의한 구매자 취소요청";
 
         try {
-            api.cancel(cancel);
+            HttpResponse res = api.cancel(cancel);
+            String str = IOUtils.toString(res.getEntity().getContent(), "UTF-8");
+            System.out.println(str);
         } catch (Exception e) {
             e.printStackTrace();
         }
