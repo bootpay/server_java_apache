@@ -34,7 +34,7 @@ compile group: 'com.google.code.gson', name: 'gson', version: '+'
 public class Test {
     static BootpayApi api;
     public static void main(String[] args) {
-        api = new BootpayApi("59bfc738e13f337dbd6ca48a", "FQj3jOvQYp053nxzWxHSuw+cq3zUlSWZV2ec/8fkiyA=");
+        api = new BootpayApi("59bfc738e13f337dbd6ca48a", "FQj3jOvQYp053nxzWxHSuw+cq3zUlSWZV2ec/8fkiyA=");  // application_id, private key 
         goGetToken();
         goVerfity();
         goCancel();
@@ -79,7 +79,7 @@ public class Test {
         subscribeBilling.billing_key = "5b025b33e13f33310ce560fb";
         subscribeBilling.item_name = "정기결제 테스트 아이템";
         subscribeBilling.price = 3000;
-        subscribeBilling.order_id = "" + (System.currentTimeMillis() / 1000);
+        subscribeBilling.order_id = "" + (System.currentTimeMillis() / 1000); // 고객사에서 관리하는 주문번호로, 고유값으로 생성 후 부트페이에 전달해주셔야합니다 
 
 
 
