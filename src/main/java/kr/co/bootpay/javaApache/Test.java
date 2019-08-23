@@ -6,9 +6,7 @@ import kr.co.bootpay.javaApache.model.request.SubscribeBilling;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
 
-/**
- * Created by ehowlsla on 2017. 8. 17..
- */
+
 public class Test {
     static BootpayApi api;
     public static void main(String[] args) {
@@ -58,7 +56,6 @@ public class Test {
         subscribeBilling.item_name = "정기결제 테스트 아이템";
         subscribeBilling.price = 3000;
         subscribeBilling.order_id = "" + (System.currentTimeMillis() / 1000);
-
 
 
         try {

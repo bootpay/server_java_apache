@@ -8,4 +8,5 @@ public class SubscribeBilling {
     public String item_name;
     public long price;
     public String order_id;
+    public String pg;
 }
