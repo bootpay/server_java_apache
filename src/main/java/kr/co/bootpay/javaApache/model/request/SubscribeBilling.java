@@ -9,4 +9,9 @@ public class SubscribeBilling {
     public long price;
     public String order_id;
     public String pg;
+
+    public String card_no;
+    public String card_pw;
+    public String expire_month;
+    public String identify_number;
 }
