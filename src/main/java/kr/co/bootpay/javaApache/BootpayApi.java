@@ -124,7 +124,7 @@ public class BootpayApi {
 
     public HttpResponse get_subscribe_billing_key(SubscribeBilling subscribeBilling) throws Exception {
         if(this.token == null || this.token.isEmpty()) throw new Exception("token 값이 비어있습니다.");
-        if(subscribeBilling.billing_key == null || subscribeBilling.billing_key.isEmpty()) throw new Exception("billing_key 값을 입력해주세요.");
+//         if(subscribeBilling.billing_key == null || subscribeBilling.billing_key.isEmpty()) throw new Exception("billing_key 값을 입력해주세요.");
         if(subscribeBilling.item_name == null || subscribeBilling.item_name.isEmpty()) throw new Exception("item_name 값을 입력해주세요.");
         if(subscribeBilling.order_id == null || subscribeBilling.order_id.isEmpty()) throw new Exception("order_id 주문번호를 설정해주세요.");
         if(subscribeBilling.pg == null || subscribeBilling.pg.isEmpty()) throw new Exception("결제하고자 하는 pg alias를 입력해주세요.");
