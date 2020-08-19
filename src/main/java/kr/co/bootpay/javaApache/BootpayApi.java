@@ -31,11 +31,12 @@ public class BootpayApi {
     private final String URL_SUBSCRIBE_BILLING = BASE_URL + "subscribe/billing.json";
     private final String URL_SUBSCRIBE_BILLING_RESERVE = BASE_URL + "subscribe/billing/reserve.json";
     private final String URL_SUBSCRIBE_BILLING_RESERVE_CANCEL = BASE_URL + "subscribe/billing/reserve/";
-    private final String URL_SEND_SMS = BASE_URL + "push/sms.json";
-    private final String URL_SEND_LMS = BASE_URL + "push/lms.json";
+    private final String URL_GET_USER_TOKEN = BASE_URL + "request/user/token";
+//     private final String URL_SEND_SMS = BASE_URL + "push/sms.json";
+//     private final String URL_SEND_LMS = BASE_URL + "push/lms.json";
 
 //    private final String URL_NAVERPAY_ITEM_RESPONSE = BASE_URL + "npay/product.json";
-    private final String URL_REMOTE_FORM = BASE_URL + "app/rest/remote_form.json";
+//     private final String URL_REMOTE_FORM = BASE_URL + "app/rest/remote_form.json";
 
     private String token;
     private String application_id;
@@ -183,40 +184,48 @@ public class BootpayApi {
         return client.execute(delete);
     }
 
-    public HttpResponse remote_form(RemoteForm remoteForm) throws Exception {
+    public HttpResponse getUserToken(User user) throws Exception {
         if(this.token == null || this.token.isEmpty()) throw new Exception("token 값이 비어있습니다.");
+        if(user == null)  throw new Exception("user 개체가 비어있습니다.");
+        if(user.user_id == null || user.user_id.isEmpty())  throw new Exception("user_id 값이 비어있습니다.");
 
         HttpClient client = HttpClientBuilder.create().build();
-        HttpPost post = getPost(URL_REMOTE_FORM, new StringEntity(new Gson().toJson(remoteForm), "UTF-8"));
+        HttpPost post = getPost(URL_GET_USER_TOKEN, new StringEntity(new Gson().toJson(user), "UTF-8"));
         post.setHeader("Authorization", this.token);
         return client.execute(post);
     }
 
-    public HttpResponse send_sms(SMS sms) throws Exception {
-        if(this.token == null || this.token.isEmpty()) throw new Exception("token 값이 비어있습니다.");
-        if(sms.sp == null || sms.sp.isEmpty()) throw new Exception("sp 보내는 사람의 전화번호 값이 비어있습니다.");
-        if(sms.rps == null || sms.rps.size() == 0) throw new Exception("rps 받는 사람의 전화번호 값이 비어있습니다.");
-        if(sms.msg == null || sms.msg.isEmpty()) throw new Exception("msg 문자 내용 값이 비어있습니다.");
+//     public HttpResponse remote_form(RemoteForm remoteForm) throws Exception {
+//         if(this.token == null || this.token.isEmpty()) throw new Exception("token 값이 비어있습니다.");
+//
+//         HttpClient client = HttpClientBuilder.create().build();
+//         HttpPost post = getPost(URL_REMOTE_FORM, new StringEntity(new Gson().toJson(remoteForm), "UTF-8"));
+//         post.setHeader("Authorization", this.token);
+//         return client.execute(post);
+//     }
 
-        HttpClient client = HttpClientBuilder.create().build();
-        HttpPost post = getPost(URL_SEND_SMS, new StringEntity(new Gson().toJson(sms), "UTF-8"));
-        post.setHeader("Authorization", this.token);
-        return client.execute(post);
-    }
+//     public HttpResponse send_sms(SMS sms) throws Exception {
+//         if(this.token == null || this.token.isEmpty()) throw new Exception("token 값이 비어있습니다.");
+//         if(sms.sp == null || sms.sp.isEmpty()) throw new Exception("sp 보내는 사람의 전화번호 값이 비어있습니다.");
+//         if(sms.rps == null || sms.rps.size() == 0) throw new Exception("rps 받는 사람의 전화번호 값이 비어있습니다.");
+//         if(sms.msg == null || sms.msg.isEmpty()) throw new Exception("msg 문자 내용 값이 비어있습니다.");
+//
+//         HttpClient client = HttpClientBuilder.create().build();
+//         HttpPost post = getPost(URL_SEND_SMS, new StringEntity(new Gson().toJson(sms), "UTF-8"));
+//         post.setHeader("Authorization", this.token);
+//         return client.execute(post);
+//     }
 
-    public HttpResponse send_lms(LMS lms) throws Exception {
-        if(this.token == null || this.token.isEmpty()) throw new Exception("token 값이 비어있습니다.");
-        if(lms.sp == null || lms.sp.isEmpty()) throw new Exception("sp 보내는 사람의 전화번호 값이 비어있습니다.");
-        if(lms.rps == null || lms.rps.size() == 0) throw new Exception("rps 받는 사람의 전화번호 값이 비어있습니다.");
-        if(lms.msg == null || lms.msg.isEmpty()) throw new Exception("msg 문자 내용 값이 비어있습니다.");
-        if(lms.sj == null || lms.sj.isEmpty()) throw new Exception("sj 제목 값이 비어있습니다.");
-
-        HttpClient client = HttpClientBuilder.create().build();
-        HttpPost post = getPost(URL_SEND_LMS, new StringEntity(new Gson().toJson(lms), "UTF-8"));
-        post.setHeader("Authorization", this.token);
-        return client.execute(post);
-    }
-
-//    URL_REMOTE_FORM
-
+//     public HttpResponse send_lms(LMS lms) throws Exception {
+//         if(this.token == null || this.token.isEmpty()) throw new Exception("token 값이 비어있습니다.");
+//         if(lms.sp == null || lms.sp.isEmpty()) throw new Exception("sp 보내는 사람의 전화번호 값이 비어있습니다.");
+//         if(lms.rps == null || lms.rps.size() == 0) throw new Exception("rps 받는 사람의 전화번호 값이 비어있습니다.");
+//         if(lms.msg == null || lms.msg.isEmpty()) throw new Exception("msg 문자 내용 값이 비어있습니다.");
+//         if(lms.sj == null || lms.sj.isEmpty()) throw new Exception("sj 제목 값이 비어있습니다.");
+//
+//         HttpClient client = HttpClientBuilder.create().build();
+//         HttpPost post = getPost(URL_SEND_LMS, new StringEntity(new Gson().toJson(lms), "UTF-8"));
+//         post.setHeader("Authorization", this.token);
+//         return client.execute(post);
+//     }
 }

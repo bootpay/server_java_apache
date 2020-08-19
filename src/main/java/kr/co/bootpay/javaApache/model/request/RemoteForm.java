@@ -3,6 +3,7 @@ package kr.co.bootpay.javaApache.model.request;
 import java.util.ArrayList;
 import java.util.List;
 
+@deprecated
 public class RemoteForm {
     public String m_id = "";
     public String pg = "";
