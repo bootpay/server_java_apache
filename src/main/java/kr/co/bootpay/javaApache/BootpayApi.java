@@ -32,6 +32,10 @@ public class BootpayApi {
     private final String URL_SUBSCRIBE_BILLING_RESERVE = BASE_URL + "subscribe/billing/reserve.json";
     private final String URL_SUBSCRIBE_BILLING_RESERVE_CANCEL = BASE_URL + "subscribe/billing/reserve/";
     private final String URL_GET_USER_TOKEN = BASE_URL + "request/user/token";
+    private final String URL_PAYMENT_LINK = BASE_URL + "request/payment";
+    private final String URL_CERTIFICATE = BASE_URL + "certificate/";
+
+    "certificate";
 //     private final String URL_SEND_SMS = BASE_URL + "push/sms.json";
 //     private final String URL_SEND_LMS = BASE_URL + "push/lms.json";
 
@@ -193,6 +197,24 @@ public class BootpayApi {
         HttpPost post = getPost(URL_GET_USER_TOKEN, new StringEntity(new Gson().toJson(user), "UTF-8"));
         post.setHeader("Authorization", this.token);
         return client.execute(post);
+    }
+
+    public HttpResponse requestPayment(RequestLink requestPayment) throws Exception {
+        if(this.token == null || this.token.isEmpty()) throw new Exception("token 값이 비어있습니다.");
+
+        HttpClient client = HttpClientBuilder.create().build();
+        HttpPost post = getPost(URL_PAYMENT_LINK, new StringEntity(new Gson().toJson(requestPayment), "UTF-8"));
+        post.setHeader("Authorization", this.token);
+        return client.execute(post);
+    }
+
+    public HttpResponse certificate(String receipt_id) throws Exception {
+        if(this.token == null || this.token.isEmpty()) throw new Exception("token 값이 비어있습니다.");
+
+        HttpClient client = HttpClientBuilder.create().build();
+        HttpGet get = getGet(URL_CERTIFICATE + "/" + receipt_id + ".json");
+        get.setHeader("Authorization", this.token);
+        return client.execute(get);
     }
 
 //     public HttpResponse remote_form(RemoteForm remoteForm) throws Exception {
