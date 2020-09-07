@@ -35,7 +35,6 @@ public class BootpayApi {
     private final String URL_PAYMENT_LINK = BASE_URL + "request/payment";
     private final String URL_CERTIFICATE = BASE_URL + "certificate/";
 
-    "certificate";
 //     private final String URL_SEND_SMS = BASE_URL + "push/sms.json";
 //     private final String URL_SEND_LMS = BASE_URL + "push/lms.json";
 
