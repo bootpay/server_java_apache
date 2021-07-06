@@ -12,6 +12,7 @@ public class SubscribeBilling {
 
     public String card_no;
     public String card_pw;
+    public String expire_year;
     public String expire_month;
     public String identify_number;
 }
