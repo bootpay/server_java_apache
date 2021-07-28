@@ -1,8 +1,5 @@
 package kr.co.bootpay.javaApache.model.request;
 
-/**
- * Created by ehowlsla on 2019. 8. 23..
- */
 public class Item {
     public String item_name;
     public int qty;

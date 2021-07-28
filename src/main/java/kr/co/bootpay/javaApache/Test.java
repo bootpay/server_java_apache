@@ -1,50 +1,33 @@
 package kr.co.bootpay.javaApache;
 
-import com.google.gson.Gson;
-import kr.co.bootpay.javaApache.model.request.Cancel;
-import kr.co.bootpay.javaApache.model.request.SubscribeBilling;
+import kr.co.bootpay.javaApache.model.request.*;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
 
 
 public class Test {
-    static BootpayApi api;
+    static Bootpay bootpay;
     public static void main(String[] args) {
-        api = new BootpayApi("5b8f6a4d396fa665fdc2b5ea", "rm6EYECr6aroQVG2ntW0A6LpWnkTgP4uQ3H18sDDUYw=");
+        bootpay = new Bootpay("5b8f6a4d396fa665fdc2b5ea", "rm6EYECr6aroQVG2ntW0A6LpWnkTgP4uQ3H18sDDUYw=");
+//        bootpay.getAccessToken();
+//        api = new BootpayApi("5b8f6a4d396fa665fdc2b5ea", "rm6EYECr6aroQVG2ntW0A6LpWnkTgP4uQ3H18sDDUYw=");
         goGetToken();
+//        getBillingKey();
+//        requestSubscribe();
+//        reserveSubscribe();
+//        destroyBillingKey();
+//        reserveCancelSubscribe();
+//        receiptCancel();
+//        getUserToken();
+//        requestLink();
+//        submit();
 //        goVerfity();
-//        goCancel();
-        getBillingKey();
-//        goSubscribeBilling();
-//        goRemoteForm();
+//        certificate();
     }
 
     public static void goGetToken() {
         try {
-            api.getAccessToken();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void goVerfity() {
-        try {
-            HttpResponse res = api.verify("593f8febe13f332431a8ddae");
-            String str = IOUtils.toString(res.getEntity().getContent(), "UTF-8");
-            System.out.println(str);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void goCancel() {
-        Cancel cancel = new Cancel();
-        cancel.receipt_id = "593f8febe13f332431a8ddae";
-        cancel.name = "관리자 홍길동";
-        cancel.reason = "택배 지연에 의한 구매자 취소요청";
-
-        try {
-            HttpResponse res = api.cancel(cancel);
+            HttpResponse res = bootpay.getAccessToken();
             String str = IOUtils.toString(res.getEntity().getContent(), "UTF-8");
             System.out.println(str);
         } catch (Exception e) {
@@ -53,19 +36,23 @@ public class Test {
     }
 
     public static void getBillingKey() {
-        SubscribeBilling subscribeBilling = new SubscribeBilling();
-        subscribeBilling.item_name = "정기결제 테스트 아이템";
-        subscribeBilling.price = 1000;
-        subscribeBilling.order_id = "" + (System.currentTimeMillis() / 1000);
+        Subscribe subscribeBilling = new Subscribe();
+        subscribeBilling.itemName = "정기결제 테스트 아이템";
+        subscribeBilling.orderId = "" + (System.currentTimeMillis() / 1000);
         subscribeBilling.pg = "nicepay";
-        subscribeBilling.card_no = "5570**********1074"; //실제 테스트시에는 *** 마스크처리가 아닌 숫자여야 함
-        subscribeBilling.card_pw = "**"; //실제 테스트시에는 *** 마스크처리가 아닌 숫자여야 함
-        subscribeBilling.expire_year = "**"; //실제 테스트시에는 *** 마스크처리가 아닌 숫자여야 함
-        subscribeBilling.expire_month = "**"; //실제 테스트시에는 *** 마스크처리가 아닌 숫자여야 함
-        subscribeBilling.identify_number = ""; //주민등록번호
+//        subscribeBilling.cardNo = "5570**********1074"; //실제 테스트시에는 *** 마스크처리가 아닌 숫자여야 함
+//        subscribeBilling.cardPw = "**"; //실제 테스트시에는 *** 마스크처리가 아닌 숫자여야 함
+//        subscribeBilling.expireYear = "**"; //실제 테스트시에는 *** 마스크처리가 아닌 숫자여야 함
+//        subscribeBilling.expireMonth = "**"; //실제 테스트시에는 *** 마스크처리가 아닌 숫자여야 함
+//        subscribeBilling.identifyNumber = ""; //주민등록번호
+        subscribeBilling.cardNo = "5570420456641074"; //실제 테스트시에는 *** 마스크처리가 아닌 숫자여야 함
+        subscribeBilling.cardPw = "83"; //실제 테스트시에는 *** 마스크처리가 아닌 숫자여야 함
+        subscribeBilling.expireYear = "26"; //실제 테스트시에는 *** 마스크처리가 아닌 숫자여야 함
+        subscribeBilling.expireMonth = "12"; //실제 테스트시에는 *** 마스크처리가 아닌 숫자여야 함
+        subscribeBilling.identifyNumber = "8610141038021"; //주민등록번호
 
         try {
-            HttpResponse res = api.get_subscribe_billing_key(subscribeBilling);
+            HttpResponse res = bootpay.getBillingKey(subscribeBilling);
             String str = IOUtils.toString(res.getEntity().getContent(), "UTF-8");
             System.out.println(str);
         } catch (Exception e) {
@@ -73,23 +60,161 @@ public class Test {
         }
     }
 
-    public static void goSubscribeBilling() {
-        SubscribeBilling subscribeBilling = new SubscribeBilling();
-        subscribeBilling.billing_key = "5b025b33e13f33310ce560fb";
-        subscribeBilling.item_name = "정기결제 테스트 아이템";
-        subscribeBilling.price = 3000;
-        subscribeBilling.order_id = "" + (System.currentTimeMillis() / 1000);
-
-
+    public static void destroyBillingKey() {
         try {
-            HttpResponse res = api.subscribe_billing(subscribeBilling);
+            HttpResponse res = bootpay.destroyBillingKey("6100e7ea0d681b001fd4de69");
             String str = IOUtils.toString(res.getEntity().getContent(), "UTF-8");
             System.out.println(str);
-            System.out.println(new Gson().toJson(subscribeBilling));
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+    public static void requestSubscribe() {
+        SubscribePayload payload = new SubscribePayload();
+        payload.billingKey = "6100e8c80d681b001dd4e0d7";
+        payload.itemName = "아이템01";
+        payload.price = 1000;
+        payload.orderId = "" + (System.currentTimeMillis() / 1000);
+
+
+        try {
+            HttpResponse res = bootpay.requestSubscribe(payload);
+            String str = IOUtils.toString(res.getEntity().getContent(), "UTF-8");
+            System.out.println(str);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void reserveSubscribe() {
+        SubscribePayload payload = new SubscribePayload();
+
+        payload.billingKey = "6100e77a0d681b002ad4e5d9";
+        payload.itemName = "아이템01";
+        payload.price = 1000;
+        payload.orderId = "" + (System.currentTimeMillis() / 1000);
+        payload.executeAt = (System.currentTimeMillis() / 1000) + 10000;
+
+        try {
+            HttpResponse res = bootpay.reserveSubscribe(payload);
+            String str = IOUtils.toString(res.getEntity().getContent(), "UTF-8");
+            System.out.println(str);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void reserveCancelSubscribe() {
+        try {
+            HttpResponse res = bootpay.reserveCancelSubscribe("6100e892019943002150fef3");
+            String str = IOUtils.toString(res.getEntity().getContent(), "UTF-8");
+            System.out.println(str);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void receiptCancel() {
+        Cancel cancel = new Cancel();
+        cancel.receiptId = "6100e77a019943003650f4d5";
+        cancel.name = "관리자";
+        cancel.reason = "테스트 결제";
+
+//        String receipt_id = "";
+        try {
+            HttpResponse res = bootpay.receiptCancel(cancel);
+            String str = IOUtils.toString(res.getEntity().getContent(), "UTF-8");
+            System.out.println(str);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void getUserToken() {
+        UserToken userToken = new UserToken();
+        try {
+            HttpResponse res = bootpay.getUserToken(userToken);
+            String str = IOUtils.toString(res.getEntity().getContent(), "UTF-8");
+            System.out.println(str);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void requestLink() {
+        Payload payload = new Payload();
+        try {
+            HttpResponse res = bootpay.requestLink(payload);
+            String str = IOUtils.toString(res.getEntity().getContent(), "UTF-8");
+            System.out.println(str);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void submit() {
+        try {
+            HttpResponse res = bootpay.submit("");
+            String str = IOUtils.toString(res.getEntity().getContent(), "UTF-8");
+            System.out.println(str);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void goVerfity() {
+        try {
+            HttpResponse res = bootpay.verify("6100e8e7019943003850f9b0");
+            String str = IOUtils.toString(res.getEntity().getContent(), "UTF-8");
+            System.out.println(str);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void certificate() {
+        try {
+            HttpResponse res = bootpay.certificate("593f8febe13f332431a8ddae");
+            String str = IOUtils.toString(res.getEntity().getContent(), "UTF-8");
+            System.out.println(str);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+//    public static void goCancel() {
+//        Cancel cancel = new Cancel();
+//        cancel.receiptId = "593f8febe13f332431a8ddae";
+//        cancel.name = "관리자 홍길동";
+//        cancel.reason = "택배 지연에 의한 구매자 취소요청";
+//
+//        try {
+//            HttpResponse res = bootpay.receiptCancel(cancel);
+//            String str = IOUtils.toString(res.getEntity().getContent(), "UTF-8");
+//            System.out.println(str);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+//
+//    public static void goSubscribeBilling() {
+//        Subscribe subscribeBilling = new SubscribeBilling();
+//        subscribeBilling.billing_key = "5b025b33e13f33310ce560fb";
+//        subscribeBilling.item_name = "정기결제 테스트 아이템";
+//        subscribeBilling.price = 3000;
+//        subscribeBilling.order_id = "" + (System.currentTimeMillis() / 1000);
+//
+//
+//        try {
+//            HttpResponse res = api.subscribe_billing(subscribeBilling);
+//            String str = IOUtils.toString(res.getEntity().getContent(), "UTF-8");
+//            System.out.println(str);
+//            System.out.println(new Gson().toJson(subscribeBilling));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 //    public static void goRemoteForm() {
 //        RemoteForm form = new RemoteForm();
